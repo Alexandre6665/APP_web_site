@@ -4,7 +4,9 @@ $un = "root";
 $pwd = "";
 $db = "maindb";
 
+
 try {
+
     $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if(isset($_POST['send'])) {
@@ -21,19 +23,17 @@ try {
         $duplicate = $bdd->prepare("SELECT COUNT(*) AS count FROM spectateur WHERE mail = :mail");
         $duplicate->execute(array(':mail' => $mail));
         $result = $duplicate->fetch(PDO::FETCH_ASSOC);
-
         
 
         if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0) {
-            $req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");
+            /*$req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");*/
             $req = $bdd->prepare("INSERT INTO spectateur (nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd)), :id_compte");
             
-            $req_primary->execute(array(
+            /*$req_primary->execute(array(
                 'mail' => $mail,
                 'pwd' => $pwd,
                 'types' => OWNER
-            ));
-
+            ));*/
             $req->execute(array(
             'nom' => $lastName,
             'prenom' => $firstName,
@@ -42,18 +42,20 @@ try {
             'ville' => $city,
             'date_naissance' => $birth,
             'mail' => $mail,
-            'pwd' => $pwd
+            'pwd' => $pwd,
+            'id_compte' => 126
 
             
         ));
         echo 
         "
-        <script>
+            <script>
                 alert('Vous avez bien été inscrit. Vous allez être redirigé vers la page de connexion.');
                 setTimeout(function() {
                     window.location.href = '../connexion/connexion.php';
                 }, 50);
-            </script>";
+            </script>
+        ";
 
         }
         elseif($pwd != $cPwd) {
