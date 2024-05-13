@@ -27,7 +27,7 @@ try {
 
         if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0) {
             /*$req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");*/
-            $req = $bdd->prepare("INSERT INTO spectateur (nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd)), :id_compte");
+            $req = $bdd->prepare("INSERT INTO spectateur(nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd), :id_compte)");
             
             /*$req_primary->execute(array(
                 'mail' => $mail,
