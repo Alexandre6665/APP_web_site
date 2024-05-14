@@ -74,8 +74,35 @@
             </div>
         </div>
 
-        
-        <div class="wrapper">
+    <div class="wrapper">
+        <i id="left" class="fa-solid fa-angle-left"></i>
+        <ul class="carouse1">
+            <?php
+            // Connexion à la base de données
+            $pdo = new PDO('mysql:host=localhost;dbname=maindb', 'root', '');
+            
+            // Requête pour récupérer tous les films de la base de données
+            $stmt = $pdo->query("SELECT * FROM film");
+            
+            // Boucle à travers les résultats
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $titre = $row['titre'];
+                $image = $row['image'];
+                ?>
+                <li class="card">
+                    <a href="../reservation_films/<?php echo strtolower(str_replace(' ', '_', $titre)); ?>.php">
+                        <div class="img"><img src="<?php echo $image; ?>" alt="<?php echo $titre; ?>" draggable="false"></div>
+                        <h2><?php echo $titre; ?></h2>
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+        <i id="right" class="fa-solid fa-angle-right"></i>
+    </div>
+
+        <!-- <div class="wrapper">
             <i id="left" class="fa-solid fa-angle-left"></i>
             <ul class="carouse1">
                 <li class="card">
@@ -122,7 +149,7 @@
                 </li>
             </ul>
             <i id="right" class="fa-solid fa-angle-right"></i>
-        </div>
+        </div>-->
         <div class="news">
             <h2>DERNIERES NEWS</h2>
             <div class="festival">
