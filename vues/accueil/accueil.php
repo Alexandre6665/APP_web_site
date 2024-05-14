@@ -17,7 +17,6 @@
     <header class="header">
         <a class="logo" href="../accueil/accueil.php"><img src="../images/Logo_SoundOnAir.png" alt="Logo" width="130px"
                 height="20px"></a>
-                okok
 
         <nav class="navbar">
             <button><a href="../accueil/accueil.php"><span>ACCUEIL</span></a></button>
