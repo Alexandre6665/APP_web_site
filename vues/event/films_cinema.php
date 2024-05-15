@@ -78,29 +78,48 @@
         <i id="left" class="fa-solid fa-angle-left"></i>
         <ul class="carouse1">
             <?php
-            // Connexion à la base de données
-            $pdo = new PDO('mysql:host=localhost;dbname=maindb', 'root', '');
-            
-            // Requête pour récupérer tous les films de la base de données
-            $stmt = $pdo->query("SELECT * FROM film");
-            
-            // Boucle à travers les résultats
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $titre = $row['titre'];
-                $image = $row['image'];
-                ?>
-                <li class="card">
-                    <a href="../reservation_films/<?php echo strtolower(str_replace(' ', '_', $titre)); ?>.php">
-                        <div class="img"><img src="<?php echo $image; ?>" alt="<?php echo $titre; ?>" draggable="false"></div>
-                        <h2><?php echo $titre; ?></h2>
-                    </a>
-                </li>
-                <?php
+            // Établir la connexion à la base de données
+            $servername = "localhost"; // ou l'adresse IP de votre serveur MySQL
+            $username = "root";
+            $password = "";
+            $dbname = "maindb";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Vérifier la connexion
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
+
+            // Requête pour récupérer la liste des films
+            $sql = "SELECT * FROM film";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // Afficher les films
+                while($row = $result->fetch_assoc()) {
+                    $film_visa = $row["visa"];
+                    $titre = $row["titre"];
+                    $image = $row["image"];
+                    echo "<li class='card'>";
+                    echo "<a href='../reservation_films/film_reservation.php?visa=$film_visa'>";
+                    echo "<div class='img'><img src='$image' alt='$titre' draggable='false'></div>";
+                    echo "<h2>$titre</h2>";
+                    echo "</a>";
+                    echo "</li>";
+                }
+            } else {
+                echo "Aucun film trouvé.";
+            }
+
+            // Fermer la connexion à la base de données
+            $conn->close();
             ?>
         </ul>
         <i id="right" class="fa-solid fa-angle-right"></i>
     </div>
+
+    
 
         <!-- <div class="wrapper">
             <i id="left" class="fa-solid fa-angle-left"></i>
@@ -179,7 +198,7 @@
             <a href="#">Cookies</a>
         </div>
     </footer>
-
+    <script src="films_cinema.js" defer></script>
 </body>
 
 </html>

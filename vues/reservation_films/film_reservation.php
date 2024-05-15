@@ -5,7 +5,7 @@
     <title>Films et séances</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="fall_guy.css">
+    <link rel="stylesheet" href="film_reservation.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -62,22 +62,69 @@
     </header>
     <main>
         <hr>
-        <div class="container1">
-            <img src="../images/affiche_fall_guy.jpg" alt="fall guy">
-            <div class="info">
-                <h1>FALL GUY</h1>
-                <p>De David Leitch</p>
-                <p>Sortie le 1er Mai 2024</p>
-                <p>Action, Comédie, Drame  (2h06)</p>
-                <h2>Avertissement</h2>
-                <p>Ce film contient des scènes de violence et de suspense qui peuvent ne pas convenir à tous les publics. La supervision parentale est recommandée pour les jeunes spectateurs.</p>
-                
-            </div>
+        <?php
+// Vérifier si l'identifiant du film est passé dans l'URL
+if(isset($_GET['visa'])) {
+    // Établir la connexion à la base de données
+    $servername = "localhost"; // ou l'adresse IP de votre serveur MySQL
+    $username = "root";
+    $password = "";
+    $dbname = "maindb";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Vérifier la connexion
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Récupérer l'identifiant du film depuis l'URL
+    $film_visa = $_GET['visa'];
+
+    // Requête pour récupérer les informations du film
+    $sql = "SELECT * FROM film WHERE visa = $film_visa"; // Supposons que l'identifiant du film est stocké dans la colonne "visa"
+    
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Afficher les données du film
+        $row = $result->fetch_assoc();
+        $titre = $row["titre"];
+        $realisateur = $row["realisateur"];
+        $categorie = $row["categorie"];
+        $duree = $row["duree"];
+        $avertissement = $row["avertissement"];
+        $annee = $row["annee"];
+        $image = $row["image"];
+        $synopsis = $row["synopsis"];
+    } else {
+        echo "Aucun résultat trouvé.";
+    }
+
+    // Fermer la connexion à la base de données
+    $conn->close();
+} else {
+    echo "Identifiant du film non spécifié.";
+}
+?>
+    <div class="container1">
+        <img src="<?php echo $image; ?>" alt="<?php echo $titre; ?>">
+        <div class="info">
+            <h1><?php echo $titre; ?></h1>
+            <p>De <?php echo $realisateur; ?></p>
+            <p>Sortie le <?php echo $annee; ?></p>
+            <p><?php echo $categorie; ?> (<?php echo $duree; ?>)</p>
+            <h2>Avertissement</h2>
+            <p><?php echo $avertissement; ?></p>
         </div>
-        <div class="synopsis">
-            <h1>Synopsis</h1>
-            <p>C'est l'histoire d'un cascadeur, et comme tous les cascadeurs, il se fait tirer dessus, exploser, écraser, jeter par les fenêtres et tombe toujours de plus en plus haut… pour le plus grand plaisir du public. Après un accident qui a failli mettre fin à sa carrière, ce héros anonyme du cinéma va devoir retrouver une star portée disparue, déjouer un complot et tenter de reconquérir la femme de sa vie tout en bravant la mort tous les jours sur les plateaux. Que pourrait-il lui arriver de pire ?</p>
-        </div>
+    </div>
+    <div class="synopsis">
+        <h1>Synopsis</h1>
+        <p><?php echo $synopsis; ?></p>
+    </div>
+
+
+        
         <div class="reservation">
             <h1>UGC CINE ISSY</h1>
             <div class="reservation1">
