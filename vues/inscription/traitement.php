@@ -26,14 +26,20 @@ try {
         
 
         if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0) {
-            /*$req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");*/
-            $req = $bdd->prepare("INSERT INTO spectateur(nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd), :id_compte)");
+            //Insertion dans la table compte
+            $req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");
             
-            /*$req_primary->execute(array(
+            $req_primary->execute(array(
                 'mail' => $mail,
                 'pwd' => $pwd,
-                'types' => OWNER
-            ));*/
+                'types' => 'DEFAULT'
+            ));
+
+            //Récupération de l'ID généré automatiquement dans la table compte
+            $id_compte = $bdd->lastInsertID();
+
+            //Insertion dans la table spectateur
+            $req = $bdd->prepare("INSERT INTO spectateur(nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd), :id_compte)");
             $req->execute(array(
             'nom' => $lastName,
             'prenom' => $firstName,
@@ -43,7 +49,7 @@ try {
             'date_naissance' => $birth,
             'mail' => $mail,
             'pwd' => $pwd,
-            'id_compte' => 126
+            'id_compte' => $id_compte
 
             
         ));
