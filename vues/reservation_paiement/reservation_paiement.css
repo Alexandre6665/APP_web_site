@@ -378,6 +378,7 @@ input {
     margin-right: 15px;
     border: none;
     margin-top: 10px;
+    cursor: pointer;
 }
 .infoG {
     display: flex;
@@ -406,6 +407,7 @@ input {
     border: none;
     margin-top: 10px;
     margin-left: 420px;
+    cursor: pointer;
 }
 .infoB input {
     width: 100%;
