@@ -198,7 +198,6 @@
             <a href="#">Cookies</a>
         </div>
     </footer>
-    <script src="films_cinema.js" defer></script>
 </body>
 
 </html>

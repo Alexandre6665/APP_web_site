@@ -128,7 +128,7 @@ if(isset($_GET['visa'])) {
         <div class="reservation">
             <h1>UGC CINE ISSY</h1>
             <div class="reservation1">
-                <a href="#">
+                <a href="../reservation_paiement/reservation_paiement.php">
                 <div class="reservation1-2">
                     <h2>VOSFR</h2>
                     <p>17:00</p>
