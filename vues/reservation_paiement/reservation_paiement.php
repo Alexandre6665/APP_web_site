@@ -59,31 +59,54 @@
         </nav>
     </header>
     <main>
-        
-        <h1>RÉSERVATION</h1>
-        <div class="movie-info">
-            <div class="movie-poster">
-                <img src="../images/affiche_civil_war.jpg" alt="Civil War">
-            </div>
-            <div class="movie-details">
-                <h2>LE ROYAUME DES ABYSSES</h2>
-                <p>UGC CINE ISSY</p>
-                <p>Salle 30</p>
-                <p>15/04 - 17:00</p>
-                <p>1 place - 5,00 euros</p>
+        <div class="reservation">
+            <h1 class = "titre">RÉSERVATION</h1>
+            <div class="movie-info">
+                <div class="movie-poster">
+                    <img src="../images/affiche_civil_war.jpg" alt="Civil War">
+                </div>
+                <div class="movie-details">
+                    <div class="details1">
+                        <h2>Civil War</h2>
+                        <p class = "lieu">UGC CINE ISSY</p>
+                        <p class = "lieu">Salle 30</p>
+                        <p class = "prix">1 place - 5,00 euros</p>
+                    </div>
+                    <div class="details2">
+                        <p class = "date">15/04</p>
+                        <p class = "date">17:00</p>
+                        <p class = "heureFin">(fin 19h15)</p>
+                        <p>VOSFR</p>
+                        
+                    </div>
+                </div>
             </div>
         </div>
-        <h2>Informations personnelles</h2>
-        <div class="personal-info">
-            <div class="input-field">
-                <input type="text" placeholder="NOM" name="lastname" required>
+        <div class="infoG">
+            <div class="info">
+                <h2>Informations personnelles</h2>
+                <div class="personal-info">
+                        <input type="text" placeholder="NOM" name="lastname" required>
+                        <input type="text" placeholder="PRÉNOM" name="firstname" required>
+                        <input type="email" placeholder="EMAIL" name="email" required>
+                </div>
             </div>
-            <div class="input-field">
-                <input type="text" placeholder="PRÉNOM" name="firstname" required>
+        
+            <div class="promo">
+                <p>CODE PROMO</p>
+                <input type="text" placeholder="Entrer un code promo">
+                <button>OK</button>
             </div>
-            <div class="input-field">
-                <input type="email" placeholder="EMAIL" name="email" required>
-            </div>
+        </div>
+        <div class="info_bancaire">
+                <h2>Informations bancaires</h2>
+                <div class="infoB">
+                        <input type="text" placeholder="Numero de carte" name="carte" required>
+                        <input type="text" placeholder="Date d'expiration" name="date_expiration" required>
+                        <input type="text" placeholder="Code CCV" name="CCV" required>
+                        <button>Payer par carte</button>
+                </div>
+        </div>
 
 
     </main>
