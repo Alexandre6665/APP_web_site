@@ -6,7 +6,6 @@ $db = "maindb";
 
 
 try {
-
     $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if(isset($_POST['send'])) {
@@ -19,27 +18,30 @@ try {
         $birth = date('Y-m-d', strtotime($_POST["birth"]));
         $pwd = $_POST["pwd"];
         $cPwd = $_POST["cPwd"];
+        $type = $_POST["type"];
         
         $duplicate = $bdd->prepare("SELECT COUNT(*) AS count FROM spectateur WHERE mail = :mail");
         $duplicate->execute(array(':mail' => $mail));
         $result = $duplicate->fetch(PDO::FETCH_ASSOC);
         
 
-        if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0) {
+        if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0 && ($type == 'OWNER' || $type == 'DEFAULT' || $type=='ADMIN')) {
+            //Débuggage
+            echo "Error"
             //Insertion dans la table compte
             $req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");
             
             $req_primary->execute(array(
                 'mail' => $mail,
                 'pwd' => $pwd,
-                'types' => 'DEFAULT'
+                'types' => $type
             ));
 
             //Récupération de l'ID généré automatiquement dans la table compte
             $id_compte = $bdd->lastInsertID();
 
             //Insertion dans la table spectateur
-            $req = $bdd->prepare("INSERT INTO spectateur(nom, prenom, adresse, code_postal, ville, date_naissance, mail, pwd, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, MD5(:pwd), :id_compte)");
+            $req = $bdd->prepare("INSERT INTO spectateur(nom, prenom, adresse, code_postal, ville, date_naissance, mail, id_compte) VALUES(:nom, :prenom, :adresse, :code_postal, :ville, :date_naissance, :mail, :id_compte)");
             $req->execute(array(
             'nom' => $lastName,
             'prenom' => $firstName,
@@ -48,7 +50,6 @@ try {
             'ville' => $city,
             'date_naissance' => $birth,
             'mail' => $mail,
-            'pwd' => $pwd,
             'id_compte' => $id_compte
 
             
@@ -65,7 +66,7 @@ try {
 
         }
         elseif($pwd != $cPwd) {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&type=$type";
             echo 
             "
             <script>
@@ -77,7 +78,7 @@ try {
         }
         
         /*elseif(strlen($pwd) < 8) {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&type=$type";
             echo 
             "
             <script>
@@ -90,7 +91,7 @@ try {
         }*/
 
         elseif($result['count'] > 0) {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&type=$type";
             echo 
             "
             <script>
@@ -100,6 +101,18 @@ try {
                 }, 50);
             </script>";
 
+        }
+
+        elseif($type!='OWNER' || $type!='ADMIN' || $type!='DEFAULT') {
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&pwd=$pwd&cPwd=$cPwd";
+            echo 
+            "
+            <script>
+                alert('Le type de compte que vous avez saisi n'est pas valide. Veuillez le ressaisir.');
+                setTimeout(function() {
+                    window.location.href = '$redirectUrl';
+                }, 50);
+            </script>";
         }
         
     }

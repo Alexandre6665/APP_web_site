@@ -98,7 +98,7 @@ form input[type="text"] {
 form input[type="submit"] {
     width: 200px;
     height: 35px;
-    margin-top: 20px;
+    margin-top: 15px;
     font-weight: bold;
     margin-left: 60px;
     background-color: rgb(213, 209, 209);
@@ -169,7 +169,7 @@ img {
 main {
     width: 100%;
     flex-grow: 1;
-    padding-bottom: 170px;
+    padding-bottom: 190px;
 }
 
 
@@ -355,6 +355,7 @@ footer {
     height: 80px;
     background: linear-gradient(129deg, #F24E1E, #68a4d8);
     width: 100%;
+    margin-top: 20px;
 }
 
 .footer {

@@ -68,7 +68,7 @@ include 'traitement_login.php';
             <h2>Connexion</h2>
             <hr>
             <form method="POST" action="traitement_login.php">
-                <input type="text" placeholder="NOM D'UTILISATEUR OU EMAIL" name="mail" id="mail">
+                <input type="text" placeholder="EMAIL" name="mail" id="mail">
                 <input type="password" placeholder="MOT DE PASSE" name="pwd" id="pwd">
                 <input type="submit" value="Connectez-vous" name="connect">
             </form>
