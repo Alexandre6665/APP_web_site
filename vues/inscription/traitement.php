@@ -4,8 +4,13 @@ $un = "root";
 $pwd = "";
 $db = "maindb";
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 try {
+    
     $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if(isset($_POST['send'])) {
@@ -27,7 +32,8 @@ try {
 
         if($pwd == $cPwd /*&& strlen($pwd) >= 8*/ && $result['count'] == 0 && ($type == 'OWNER' || $type == 'DEFAULT' || $type=='ADMIN')) {
             //Débuggage
-            echo "Error"
+           //echo "Error";
+           
             //Insertion dans la table compte
             $req_primary = $bdd->prepare("INSERT INTO compte(mail, pwd, types) VALUES(:mail, MD5(:pwd), :types)");
             
@@ -78,7 +84,7 @@ try {
         }
         
         /*elseif(strlen($pwd) < 8) {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&type=$type";
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
             echo 
             "
             <script>
@@ -91,7 +97,7 @@ try {
         }*/
 
         elseif($result['count'] > 0) {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&type=$type";
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
             echo 
             "
             <script>
@@ -103,8 +109,9 @@ try {
 
         }
 
-        elseif($type!='OWNER' || $type!='ADMIN' || $type!='DEFAULT') {
-            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth&pwd=$pwd&cPwd=$cPwd";
+        elseif($type!='OWNER' && $type!='ADMIN' && $type!='DEFAULT') {
+            $redirectUrl = "inscription.php?lastName=$lastName&firstName=$firstName&mail=$mail&add=$address&postal=$postal&city=$city&birth=$birth";
+            
             echo 
             "
             <script>
@@ -119,7 +126,9 @@ try {
 
 }
 catch(PDOException $e){
-    echo "erreur"; //$sql . "<br>" . $e->getMessage();
+    echo "error";
+    //$sql . "<br>" . $e->getMessage();
+    echo "<br>" . $e->getMessage();
 
 }
 
