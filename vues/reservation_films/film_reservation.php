@@ -124,47 +124,61 @@ if(isset($_GET['visa'])) {
     </div>
 
         <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "maindb";
+        // Établir la connexion à la base de données
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "maindb";
 
-    // Créer une connexion
-    $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-?>
+        // Récupérer l'ID du film de l'URL
+        $visa = isset($_GET['visa']) ? (int)$_GET['visa'] : 0;
+        if ($visa === 0) {
+            die('Erreur: Film non spécifié.');
+        }
+
+        // Modifier la requête pour inclure un filtre sur l'visa
+        $sql = "SELECT d.id_diffusion, d.heureDebut, d.heureFin, d.langue, s.nom_salle, f.visa
+        FROM diffuser d
+        JOIN salle s ON d.id_salle = s.id_salle
+        JOIN film f ON f.visa = d.visa
+        WHERE d.visa = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $visa);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        ?>
+
+        <div class="reservation">
+            <h1>UGC CINE ISSY</h1>
+            <div class="reservation1">
+                <?php if ($result->num_rows > 0) : ?>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <a href="../reservation_paiement/reservation_paiement.php?visa=<?= urlencode($row['visa']) ?>&id_diffusion=<?= urlencode($row['id_diffusion']) ?>">
+                        <div class="reservation1-2">
+                            <h2><?= $row["langue"] ?></h2>
+                            <p><?= $row["heureDebut"] ?></p>
+                            <p>(fin <?= $row["heureFin"] ?>)</p>
+                            <div class="salle">
+                                <p><strong>Salle <?= $row["nom_salle"] ?></strong></p>
+                            </div>
+                        </div></a>
+                    <?php endwhile; ?>
+                <?php else : ?>
+                    <p>Aucune diffusion disponible pour ce film.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
+            <?php
+            $conn->close();
+            ?>
 
 
-    <?php
-        $sql = "SELECT d.heureDebut, d.heureFin, d.langue, s.nom_salle 
-        FROM diffuser d 
-        JOIN salle s ON d.id_salle = s.id_salle";
-        $result = $conn->query($sql);
-    ?>
-    <div class="reservation">
-    <h1>UGC CINE ISSY</h1>
-    <div class="reservation1">
-        <?php if ($result->num_rows > 0) : ?>
-            <?php while($row = $result->fetch_assoc()) : ?>
-                <a href="../reservation_paiement/reservation_paiement.php">
-                <div class="reservation1-2">
-                    <h2><?= $row["langue"] ?></h2>
-                    <p><?= $row["heureDebut"] ?></p>
-                    <p>(fin <?= $row["heureFin"] ?>)</p>
-                    <div class="salle">
-                        <p><strong>Salle <?= $row["nom_salle"] ?></strong></p>
-                    </div>
-                </div></a>
-            <?php endwhile; ?>
-        <?php else : ?>
-            <p>Aucune diffusion disponible.</p>
-        <?php endif; ?>
-    </div>
-</div>
 
 
 
