@@ -123,9 +123,57 @@ if(isset($_GET['visa'])) {
         <p><?php echo $synopsis; ?></p>
     </div>
 
+        <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "maindb";
+
+    // Créer une connexion
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Vérifier la connexion
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+?>
+
+
+    <?php
+        $sql = "SELECT d.heureDebut, d.heureFin, d.langue, s.nom_salle 
+        FROM diffuser d 
+        JOIN salle s ON d.id_salle = s.id_salle";
+        $result = $conn->query($sql);
+    ?>
+    <div class="reservation">
+    <h1>UGC CINE ISSY</h1>
+    <div class="reservation1">
+        <?php if ($result->num_rows > 0) : ?>
+            <?php while($row = $result->fetch_assoc()) : ?>
+                <a href="../reservation_paiement/reservation_paiement.php">
+                <div class="reservation1-2">
+                    <h2><?= $row["langue"] ?></h2>
+                    <p><?= $row["heureDebut"] ?></p>
+                    <p>(fin <?= $row["heureFin"] ?>)</p>
+                    <div class="salle">
+                        <p><strong>Salle <?= $row["nom_salle"] ?></strong></p>
+                    </div>
+                </div></a>
+            <?php endwhile; ?>
+        <?php else : ?>
+            <p>Aucune diffusion disponible.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+
+
+
+
 
         
-        <div class="reservation">
+        <!-- <div class="reservation">
             <h1>UGC CINE ISSY</h1>
             <div class="reservation1">
                 <a href="../reservation_paiement/reservation_paiement.php">
@@ -137,7 +185,7 @@ if(isset($_GET['visa'])) {
                         <p><strong>Salle 2</strong></p>
                     </div>
                 </div></a>
-                <a href="#">
+                <a href="../reservation_paiement/reservation_paiement.php">
                 <div class="reservation1-3">
                     <h2>VOSFR</h2>
                     <p>19:30</p>
@@ -146,7 +194,7 @@ if(isset($_GET['visa'])) {
                         <p><strong>Salle 3</strong></p>
                     </div>
                 </div></a>
-                <a href="#">
+                <a href="../reservation_paiement/reservation_paiement.php">
                 <div class="reservation1-3">
                     <h2>VF</h2>
                     <p>21:55</p>
@@ -156,7 +204,7 @@ if(isset($_GET['visa'])) {
                     </div>
                 </div></a>
             </div>
-        </div>
+        </div> -->
     </main>
     <footer>
         <div class="footer">
