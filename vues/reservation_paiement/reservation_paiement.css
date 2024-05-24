@@ -320,6 +320,7 @@ h1 {
     display: flex;
     flex-direction: column;
     font-size: 21px;
+    margin-right: 35px;
 }
 
 .details2 .heureFin {
