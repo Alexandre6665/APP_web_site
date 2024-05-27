@@ -59,7 +59,85 @@
         </nav>
     </header>
     <main>
-        <div class="reservation">
+        <?php
+        // Établir la connexion à la base de données
+        $servername = "localhost"; // ou l'adresse IP de votre serveur MySQL
+        $username = "root";
+        $password = "";
+        $dbname = "maindb";
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Vérifier la connexion
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        ?>
+
+        <?php
+        $visa = isset($_GET['visa']) ? $_GET['visa'] : '';
+        $id_diffusion = isset($_GET['id_diffusion']) ? (int)$_GET['id_diffusion'] : 0;
+        
+        if (empty($visa) || $id_diffusion === 0) {
+            die('Erreur: Paramètres requis non spécifiés.');
+        }
+        
+
+        $sql = "SELECT f.visa, f.titre, f.image, d.heureDebut, d.heureFin, d.langue, s.nom_salle, p.prix, p.type
+                FROM film f
+                JOIN diffuser d ON f.visa = d.visa
+                JOIN salle s ON d.id_salle = s.id_salle
+                JOIN prix p ON d.id_diffusion = p.id_diffusion
+                WHERE f.visa = ? AND d.id_diffusion = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $visa, $id_diffusion);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if (!$row) {
+            echo "Aucune réservation trouvée pour ces critères.";
+            $conn->close();
+            exit;
+        }
+        ?>
+
+
+            <div class="reservation">
+                <h1 class="titre">RÉSERVATION</h1>
+                <div class="movie-info">
+                    <div class="movie-poster">
+                        <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['titre']) ?>">
+                    </div>
+                    <div class="movie-details">
+                        <div class="details1">
+                            <h2><?= htmlspecialchars($row['titre']) ?></h2>
+                            <p class="lieu">Salle <?= htmlspecialchars($row['nom_salle']) ?></p>
+                            <p class="prix"><?= htmlspecialchars($row['type']) ?> - <?= number_format($row['prix'], 2) ?> euros</p>
+                        </div>
+                        <div class="details2">
+                            <p class="date"><?= date('H:i', strtotime($row['heureDebut'])) ?></p>
+                            <p class="heureFin">(fin <?= date('H:i', strtotime($row['heureFin'])) ?>)</p>
+                            <p><?= htmlspecialchars($row['langue']) ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        <?php
+        $conn->close();
+        ?>
+
+
+
+                
+
+
+
+
+        <!-- <div class="reservation">
             <h1 class = "titre">RÉSERVATION</h1>
             <div class="movie-info">
                 <div class="movie-poster">
@@ -81,7 +159,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="infoG">
             <div class="info">
                 <h2>Informations personnelles</h2>
@@ -106,7 +184,7 @@
                         <input type="text" placeholder="Code CCV" name="CCV" required>
                         <button>Payer par carte</button>
                 </div>
-        </div>
+        </div> 
 
 
     </main>

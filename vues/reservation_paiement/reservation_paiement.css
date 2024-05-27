@@ -248,6 +248,7 @@ main {
 
 }
 .titre {
+    font-family: 'Montserrat', sans-serif;
     margin-bottom: 20px;
     margin-left: 120px;
 }
@@ -255,6 +256,7 @@ main {
 
 
 h1 {
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: #333;
     font-size: 24px;
@@ -272,7 +274,7 @@ h1 {
     background-color: #6BA4DA;
     color: white;
     padding: 10px;
-    width: 850px;
+    width: 1050px;
     border-radius: 5px;
     margin-bottom: 20px;
     justify-content: space-evenly;
@@ -318,10 +320,11 @@ h1 {
     display: flex;
     flex-direction: column;
     font-size: 21px;
+    margin-right: 35px;
 }
 
 .details2 .heureFin {
-    font-size: 12px;
+    font-size: 15px;
 }
 .details2 .date {
     font-size: 30px;
