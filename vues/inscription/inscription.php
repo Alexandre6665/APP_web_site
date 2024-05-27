@@ -81,7 +81,11 @@
                 <input type="text" name="city" placeholder="VILLE" value="<?php echo $city; ?>" required>
                 <input type="text" name="birth" placeholder="DATE DE NAISSANCE" value="<?php echo $birth; ?>" required>
                 <input type="email" name="mail" placeholder="EMAIL" value="<?php echo $mail; ?>" required>
-                <input type="text" name="type" placeholder="TYPE (ADMIN, DEFAULT OU OWNER)" value="<?php echo $type;?>" required>
+                <select name="role" required>
+                    <option value="DEFAULT">DEFAULT</option>
+                    <option value="OWNER">OWNER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
                 <input type="password" name="pwd" placeholder="MOT DE PASSE" required>
                 <input type="password" name="cPwd" placeholder="CONFIRMER VOTRE MOT DE PASSE" required>
                 <div class="checkbox-container">
