@@ -3,9 +3,9 @@
                 height="20px"></a>
 
         <nav class="navbar">
-            <button><a href="accueil_admin.php"><span>UTILISATEURS</span></a></button>
+            <button><a href="/accueil_admin/accueil_admin.php"><span>UTILISATEURS</span></a></button>
             <button><a href=""><span>FILMS</span></a></button>
-            <button><a href=""><span>FAQ</span></a></button>
+            <button><a href="faq_admin.php"><span>FAQ</span></a></button>
             <button><a href=""><span>CGU</span></a></button>
             <button><a href=""><span>MENTIONS LÉGALES</span></a></button>
             <div class="dropdown">

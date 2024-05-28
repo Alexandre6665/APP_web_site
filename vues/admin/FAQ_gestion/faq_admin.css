@@ -5,64 +5,20 @@ body {
     background: white;
     margin: 0;
     padding: 0;
+    background: white;
     height: 100%;
 }
 
 body {
-    height: 100%;
-    flex: 1;
+    width: 100%;
 }
 
-.creation {
-    background: inherit;
+h1 {
+    margin-left: 10px;
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
-    width: 360px;
-    height: 620px;
-    margin: auto;
-    padding-top: 80px;
-    padding-bottom: 30px;
-}
-
-.creation a {
-    text-decoration: none;
-    color: #68a4d8;
-}
-
-.creation input {
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    font-weight: 600;
-    background-color: rgb(213, 209, 209);
-}
-
-.checkbox-container {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.checkbox-container input[type="checkbox"] {
-    margin-right: 0;
-    flex-shrink: 0;
-    margin-right: 10px;
-    margin-left: 20px;
-    width: min-content;
-}
-
-.checkbox-container label {
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: small;
-    white-space: nowrap;
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 17px;
-}
-
-.creation p {
-    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 h2 {
@@ -71,99 +27,10 @@ h2 {
     text-align: center;
     padding-top: 20px;
     margin-bottom: 20px;
-
 }
 
 hr {
     margin-bottom: 30px;
-}
-
-
-form {
-    width: 300px;
-    margin-left: 20px;
-}
-
-form input {
-    display: flex;
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-form select {
-    display: flex;
-    margin-top: 20px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(213, 209, 209);
-    width: 320px;
-    height: 35px;
-    margin-top: 15px;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-}
-
-form option {
-    display: flex;
-    margin-top: 20px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: rgb(213, 209, 209);
-    width: 320px;
-    height: 35px;
-    margin-top: 15px;
-    font-weight: lighter;
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-}
-
-form option:hover {
-    cursor: pointer;
-    background: rgb(213, 209, 209);
-    scale: 1.1;
-
-}
-
-form input[type="text"] {
-    background-color: rgb(213, 209, 209);
-}
-
-form input[type="submit"] {
-    width: 200px;
-    height: 35px;
-    margin-top: 15px;
-    font-weight: bold;
-    margin-left: 60px;
-    background-color: rgb(213, 209, 209);
-    cursor: pointer;
-
-}
-
-form input[type="submit"]:hover {
-    background: linear-gradient(129deg, #F24E1E, #68a4d8);
-    color: black;
-    scale: 1.1;
-}
-
-#send {
-    width: 200px;
-    height: 35px;
-    margin-top: 20px;
-    font-weight: bold;
-    margin-left: 60px;
-    background-color: rgb(213, 209, 209);
-    cursor: pointer;
-}
-
-#send:hover {
-    background: linear-gradient(129deg, #F24E1E, #68a4d8);
-    color: black;
-    scale: 1.1;
 }
 
 p {
@@ -173,7 +40,10 @@ p {
     margin-top: 1cm;
 }
 
-
+main {
+    flex: 1;
+    padding-top: 90px;
+}
 
 .header {
     font-family: 'Montserrat', sans-serif;
@@ -186,7 +56,8 @@ p {
     justify-content: space-between;
     padding: 0;
     background: linear-gradient(129deg, #F24E1E, #68a4d8);
-
+    margin-bottom: 400px;
+    z-index: 1000;
 }
 
 .header nav,
@@ -206,8 +77,7 @@ img {
 
 main {
     width: 100%;
-    flex-grow: 1;
-    padding-bottom: 190px;
+
 }
 
 
@@ -389,16 +259,18 @@ i {
     display: block;
 }
 
+
 footer {
-    height: 80px;
     background: linear-gradient(129deg, #F24E1E, #68a4d8);
+    bottom: 0;
     width: 100%;
-    margin-top: 20px;
+    height: 80px;
 }
 
 .footer {
     width: 100%;
     height: 50%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
@@ -409,10 +281,12 @@ footer {
 .footer-2 {
     width: 100%;
     height: 50%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
     font-size: 20px;
+
 }
 
 
