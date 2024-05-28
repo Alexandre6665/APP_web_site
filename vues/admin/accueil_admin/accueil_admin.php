@@ -2,10 +2,10 @@
 <html lang fr>
 
 <head>
-    <title>Accueil</title>
+    <title>Administrateur</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="accueil.css">
+    <link rel="stylesheet" href="accueil_admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -15,14 +15,12 @@
 
 <body>
     <?php
-    include '../header.php';
+    include '../header_admin.php';
     ?>
+
     <main>
         <div class="container1">
-            <div class="container1-2">
-                <p><Strong>POUR LE MEILLEUR DES CONFORTS</Strong> <br><strong>AUDITIFS</strong></p>
-                <button><a href="../event/films_cinema.php">Achetez vos billets</a></button>
-            </div>
+            
         </div>
 
         <div class="container2">
@@ -42,8 +40,9 @@
         </div>
     </main>
     <?php 
-    include '../footer.php';
+    include '../footer_admin.php';
     ?>
+    
 </body>
 
 </html>
