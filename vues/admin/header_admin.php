@@ -1,11 +1,11 @@
 <header class="header">
-        <a class="logo" href=""><img src="../../images/Logo_SoundOnAir.png" alt="Logo" width="130px"
+        <a class="logo" href="../accueil_admin/accueil_admin.php"><img src="../../images/Logo_SoundOnAir.png" alt="Logo" width="130px"
                 height="20px"></a>
 
         <nav class="navbar">
-            <button><a href="/accueil_admin/accueil_admin.php"><span>UTILISATEURS</span></a></button>
+            <button><a href="../accueil_admin/accueil_admin.php"><span>UTILISATEURS</span></a></button>
             <button><a href=""><span>FILMS</span></a></button>
-            <button><a href="faq_admin.php"><span>FAQ</span></a></button>
+            <button><a href="../FAQ_gestion/faq_admin.php"><span>FAQ</span></a></button>
             <button><a href=""><span>CGU</span></a></button>
             <button><a href=""><span>MENTIONS LÉGALES</span></a></button>
             <div class="dropdown">
