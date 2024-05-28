@@ -23,52 +23,10 @@
     $postal = isset($_GET['postal']) ? $_GET['postal'] : '';
     $city = isset($_GET['city']) ? $_GET['city'] : '';
     $birth = isset($_GET['birth']) ? $_GET['birth'] : '';
+    
+    include '../header.php';
     ?>
-
-    <header class="header">
-        <a class="logo" href="../accueil/accueil.php"><img src="../images/Logo_SoundOnAir.png" alt="Logo" width="130px"
-                height="20px"></a>
-
-        <nav class="navbar">
-            <button><a href="../accueil/accueil.php"><span>ACCUEIL</span></a></button>
-            <div class="dropdown">
-                <button><a href=""><span>NOS SERVICES</span></a>
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="../event/films_cinema.php">Films et séances</a>
-                    <a href="#">Nos cinémas</a>
-                </div>
-            </div>
-            <button><a href="#"><span>A PROPOS DE NOUS</span></a></button>
-
-            <button><a href="../help/help.php"><span>CONTACT</span></a></button>
-            <div class="dropdown">
-                <button><a href=""><span>COMPTE</span></a>
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="../inscription/inscription.php">Inscription</a>
-                    <a href="../connexion/connexion.php">Connexion</a>
-                    <a href="../gestion_compte/gestion_compte.php">Gérer mon compte</a>
-                </div>
-            </div>
-
-            <div class="lang-menu">
-                <div class="selected-lang">
-                    Français
-                </div>
-                <ul>
-                    <li>
-                        <a href="#" class="fr">Français</a>
-                    </li>
-                    <li>
-                        <a href="#" class="us">English</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    
     <main>
         <div class="creation">
             <h2>Inscription</h2>
@@ -81,7 +39,7 @@
                 <input type="text" name="city" placeholder="VILLE" value="<?php echo $city; ?>" required>
                 <input type="text" name="birth" placeholder="DATE DE NAISSANCE" value="<?php echo $birth; ?>" required>
                 <input type="email" name="mail" placeholder="EMAIL" value="<?php echo $mail; ?>" required>
-                <select name="role" required>
+                <select name="type" required>
                     <option value="DEFAULT">DEFAULT</option>
                     <option value="OWNER">OWNER</option>
                     <option value="ADMIN">ADMIN</option>
@@ -98,20 +56,9 @@
                     ici !</a></p>
         </div>
     </main>
-    <footer>
-        <div class="footer">
-            <a href="#">Besoin d'aide ?</a>
-            <a href="../help/help.php">Contact</a>
-            <a href="#">En savoir plus sur nous ?</a>
-            <a href="#">Recherche</a>
-        </div>
-        <div class="footer-2">
-            <a id="conditions" href="#">Conditions Générales</a>
-            <a id="faq" href="#">FAQ</a>
-            <a id="mentions" href="#">Mentions légales</a>
-            <a href="#">Cookies</a>
-        </div>
-    </footer>
+    <?php
+    include '../footer.php';
+    ?>
 </body>
 
 </html>
