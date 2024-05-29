@@ -18,6 +18,25 @@
     <main>
         <h1>Gestion de la F.A.Q</h1>
         <hr>
+
+        <div class="form-container">
+        <form id="faq-form">
+            <input type="hidden" id="faq-id">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" required>
+            <label for="rep">Answer:</label>
+            <textarea id="rep" name="rep" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="faq-container">
+        <h2>FAQs</h2>
+        <div id="faq-list"></div>
+    </div>
+
+    <script src="script.js"></script>
+
     </main>
     <?php
     include '../footer_admin.php';
