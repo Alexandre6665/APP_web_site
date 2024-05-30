@@ -81,7 +81,10 @@ main {
 
 }
 
-
+strong {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+}
 
 .navbar {
     display: flex;
