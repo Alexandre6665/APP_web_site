@@ -2,7 +2,6 @@ html,
 body {
     display: flex;
     flex-direction: column;
-    background: white;
     margin: 0;
     padding: 0;
     background: white;

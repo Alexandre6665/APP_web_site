@@ -7,16 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const id = document.getElementById('faq-id').value;
         const question = document.getElementById('question').value;
-        const answer = document.getElementById('rep').value; // Changer 'answer' à 'rep'
+        const answer = document.getElementById('rep').value;
 
         const formData = new FormData();
         formData.append('question', question);
-        formData.append('rep', answer); // Changer 'answer' à 'rep'
+        formData.append('rep', answer); // 
 
-        let url = 'gestion_faq.php?action=créer'; // Changer 'create' à 'créer'
+        let url = 'gestion_faq.php?action=créer';
         if (id) {
-            formData.append('id_faq', id); // Changer 'id' à 'id_faq'
-            url = 'gestion_faq.php?action=mettre à jour'; // Changer 'update' à 'mettre à jour'
+            formData.append('id_faq', id);
+            url = 'gestion_faq.php?action=mettre à jour';
         }
 
         fetch(url, {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function loadFAQs() {
-        fetch('gestion_faq.php?action=lire') // Changer 'read' à 'lire'
+        fetch('gestion_faq.php?action=lire')
             .then(response => response.json())
             .then(data => {
                 faqList.innerHTML = '';
@@ -55,14 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.editFAQ = (id, question, answer) => {
         document.getElementById('faq-id').value = id;
         document.getElementById('question').value = question;
-        document.getElementById('rep').value = answer; // Changer 'answer' à 'rep'
+        document.getElementById('rep').value = answer;
     }
 
     window.deleteFAQ = (id) => {
         const formData = new FormData();
-        formData.append('id_faq', id); // Changer 'id' à 'id_faq'
+        formData.append('id_faq', id);
 
-        fetch('gestion_faq.php?action=supprimer', { // Changer 'delete' à 'supprimer'
+        fetch('gestion_faq.php?action=supprimer', {
             method: 'POST',
             body: formData
         }).then(response => response.text())
