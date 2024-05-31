@@ -6,7 +6,7 @@
             <button><a href="../accueil_admin/accueil_admin.php"><span>UTILISATEURS</span></a></button>
             <button><a href=""><span>FILMS</span></a></button>
             <button><a href="../FAQ_gestion/faq_admin.php"><span>FAQ</span></a></button>
-            <button><a href=""><span>CGU</span></a></button>
+            <button><a href="../CGU_gestion/cgu_admin.php"><span>CGU</span></a></button>
             <button><a href=""><span>MENTIONS LÉGALES</span></a></button>
             <div class="dropdown">
                 <button><a href=""><span>COMPTE</span></a>
