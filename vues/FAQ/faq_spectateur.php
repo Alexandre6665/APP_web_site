@@ -22,16 +22,16 @@
         $pwd = "";
         $db = "maindb";
 
-        // Connexion à la base de données avec PDO
+
         try {
             $conn = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
-            // Configure PDO pour lancer des exceptions en cas d'erreurs
+       
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
 
-        // Récupérer toutes les FAQs
+
         $sql = "SELECT * FROM faq";
         $stmt = $conn->prepare($sql);
         $stmt->execute();

@@ -1,41 +1,44 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-    $serv = "localhost";
-    $un = "root";
-    $pwd = "";
-    $db = "maindb";
-    
+
+if(isset($_POST['connect'])) {
+    $mail = $_POST['mail'];
+    $pwd = $_POST['pwd'];
+
+    // Connexion à la base de données
+    $dsn = 'mysql:host=localhost;dbname=maindb';
+    $username = 'root';
+    $password = '';
+
     try {
-        $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-        echo $sql . "<br>" . $e->getMessage();
-    }
+        $db = new PDO($dsn, $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $mail = $_POST['mail'];
-        $pwd = $_POST['pwd'];
+        // Vérification des identifiants
+        $query = "SELECT * FROM compte WHERE mail = :mail AND pwd = :pwd";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(':mail' => $mail, ':pwd' => $pwd));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($mail != "" && $pwd != ""){
-            $req = $bdd->query("SELECT * FROM spectateur WHERE mail = '$mail' AND pwd = '$pwd'");
-            $rep = $req->fetch();
-            echo 
-                "
-                <script>
-                    alert('Vous vous êtes bien connecté. Vous allez être redirigé vers la page d'accueil.');
-                        setTimeout(function() {
-                        window.location.href = '../accueil/accueil.php';
-                        }, 50);
-                </script>
-                ";
+        if($row) {
+            // Vérifier si le mot de passe correspond
+            if(password_verify($pwd, $row['pwd'])) {
+                // Mot de passe correct, démarrage de la session
+                $_SESSION['id_compte'] = $row['id_compte'];
+                $_SESSION['mail'] = $row['mail'];
+                $_SESSION['types'] = $row['types'];
+
+                // Redirection vers la page de gestion de compte
+                header("Location: ../gestion_compte/gestion_compte.php");
+                exit;
+            } else {
+                echo "Identifiants incorrects.";
+            }
+        } else {
+            echo "Identifiants incorrects.";
         }
-        else {
-            $error_message = "Email ou mot de passe incorrect.";
-        }
-
+    } catch(PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
     }
-
-    ?>
+}
+?>
