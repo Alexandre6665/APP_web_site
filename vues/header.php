@@ -3,17 +3,7 @@
                 height="20px"></a>
 
         <nav class="navbar">
-            <button><a href="../accueil/accueil.php"><span>ACCUEIL</span></a></button>
-            <button><a href="../"></a></button>
-            <div class="dropdown">
-                <button><a href=""><span>NOS SERVICES</span></a>
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="../event/films_cinema.php">Films et séances</a>
-                    <a href="#">Nos cinémas</a>
-                </div>
-            </div>
+            <button><a href="../event/films_cinema.php"><span>ACCUEIL</span></a></button>
             <button><a href="#"><span>A PROPOS DE NOUS</span></a></button>
 
             <button><a href="../help/help.php"><span>CONTACT</span></a></button>
