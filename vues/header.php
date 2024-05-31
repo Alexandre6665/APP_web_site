@@ -4,6 +4,7 @@
 
         <nav class="navbar">
             <button><a href="../accueil/accueil.php"><span>ACCUEIL</span></a></button>
+            <button><a href="../"></a></button>
             <div class="dropdown">
                 <button><a href=""><span>NOS SERVICES</span></a>
                     <i class="fa fa-caret-down"></i>
