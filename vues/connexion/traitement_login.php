@@ -23,6 +23,7 @@ if(isset($_POST['connect'])) {
             // Vérifier si le mot de passe correspond
             if(password_verify($pwd, $row['pwd'])) {
                 // Mot de passe correct, démarrage de la session
+                session_start();
                 $_SESSION['id_compte'] = $row['id_compte'];
                 $_SESSION['mail'] = $row['mail'];
                 $_SESSION['types'] = $row['types'];
