@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang fr>
+<html lang="fr">
 
 <head>
     <title>Films et séances</title>
@@ -101,7 +101,7 @@ if(isset($_GET['visa'])) {
         }
 
         // Modifier la requête pour inclure un filtre sur l'visa
-        $sql = "SELECT d.id_diffusion, d.heureDebut, d.heureFin, d.langue, s.nom_salle, f.visa
+        $sql = "SELECT d.id_diffusion, d.heureDebut, d.heureFin, d.langue, s.nom_salle, s.id_salle, f.visa
         FROM diffuser d
         JOIN salle s ON d.id_salle = s.id_salle
         JOIN film f ON f.visa = d.visa
@@ -124,6 +124,27 @@ if(isset($_GET['visa'])) {
                             <p>(fin <?= $row["heureFin"] ?>)</p>
                             <div class="salle">
                                 <p><strong>Salle <?= $row["nom_salle"] ?></strong></p>
+                                <?php
+                                // Récupérer les informations des capteurs pour cette salle
+                                $id_salle = $row["id_salle"];
+                                $sql_capteur = "SELECT m.vol_snd, m.pwr_dsp, m.qualite
+                                                FROM mesure m
+                                                JOIN capteur c ON m.id_capteur = c.id_capteur
+                                                WHERE c.id_salle = ?";
+                                $stmt_capteur = $conn->prepare($sql_capteur);
+                                $stmt_capteur->bind_param("i", $id_salle);
+                                $stmt_capteur->execute();
+                                $result_capteur = $stmt_capteur->get_result();
+
+                                if ($result_capteur->num_rows > 0) {
+                                    $capteur_data = $result_capteur->fetch_assoc();
+                                    echo "<p>Volume sonore: " . htmlspecialchars($capteur_data["vol_snd"]) . " dB</p>";
+                                    echo "<p>Puissance dissipée: " . htmlspecialchars($capteur_data["pwr_dsp"]) . " W</p>";
+                                    echo "<p>Qualité du confort: " . htmlspecialchars($capteur_data["qualite"]) . "</p>";
+                                } else {
+                                    echo "<p>Aucune donnée de capteur disponible pour cette salle.</p>";
+                                }
+                                ?>
                             </div>
                         </div></a>
                     <?php endwhile; ?>
@@ -138,46 +159,6 @@ if(isset($_GET['visa'])) {
             ?>
 
 
-
-
-
-
-
-
-
-        
-        <!-- <div class="reservation">
-            <h1>UGC CINE ISSY</h1>
-            <div class="reservation1">
-                <a href="../reservation_paiement/reservation_paiement.php">
-                <div class="reservation1-2">
-                    <h2>VOSFR</h2>
-                    <p>17:00</p>
-                    <p>(fin 19:15)</p>
-                    <div class="salle">
-                        <p><strong>Salle 2</strong></p>
-                    </div>
-                </div></a>
-                <a href="../reservation_paiement/reservation_paiement.php">
-                <div class="reservation1-3">
-                    <h2>VOSFR</h2>
-                    <p>19:30</p>
-                    <p>(fin 21:45)</p>
-                    <div class="salle">
-                        <p><strong>Salle 3</strong></p>
-                    </div>
-                </div></a>
-                <a href="../reservation_paiement/reservation_paiement.php">
-                <div class="reservation1-3">
-                    <h2>VF</h2>
-                    <p>21:55</p>
-                    <p>(fin 00:10)</p>
-                    <div class="salle">
-                        <p><strong>Salle 4</strong></p>
-                    </div>
-                </div></a>
-            </div>
-        </div> -->
     </main>
     <?php 
     include '../footer.php';
