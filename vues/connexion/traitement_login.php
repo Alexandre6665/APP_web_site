@@ -1,41 +1,34 @@
 <?php
 session_start();
+include 'connectToDB_con.php';
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-    $serv = "localhost";
-    $un = "root";
-    $pwd = "";
-    $db = "maindb";
-    
-    try {
-        $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-        echo $sql . "<br>" . $e->getMessage();
-    }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $mail = $_POST['mail'];
-        $pwd = $_POST['pwd'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $mail = $_POST['mail'];
+    $pwd = $_POST['pwd'];
 
-        if($mail != "" && $pwd != ""){
-            $req = $bdd->query("SELECT * FROM spectateur WHERE mail = '$mail' AND pwd = '$pwd'");
-            $rep = $req->fetch();
-            echo 
-                "
-                <script>
-                    alert('Vous vous êtes bien connecté. Vous allez être redirigé vers la page d'accueil.');
-                        setTimeout(function() {
-                        window.location.href = '../accueil/accueil.php';
-                        }, 50);
-                </script>
-                ";
+    if (empty($mail) || empty($pwd)) {
+        $error_message = "Veuillez remplir tous les champs.";
+    } else {
+        try {
+            // Utilisation de $pdo pour accéder à la base de données
+            $stmt = $bdd->prepare('SELECT * FROM compte WHERE mail = :mail');
+            $stmt->execute(['mail' => $mail]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($pwd, $user['pwd'])) {
+                $_SESSION['user_id'] = $user['id_compte'];
+                $_SESSION['user_type'] = $user['types'];
+                header("Location: gestion_compte.php");
+                exit();
+            } else {
+                $error_message = "Email ou mot de passe incorrect.";
+            }
+        } catch (PDOException $e) {
+            $error_message = "Erreur de connexion à la base de données: " . $e->getMessage();
         }
-        else {
-            $error_message = "Email ou mot de passe incorrect.";
-        }
-
     }
-
-    ?>
+}
+?>

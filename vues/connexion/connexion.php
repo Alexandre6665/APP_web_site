@@ -30,6 +30,13 @@
             </form>
             <p>Vous n'avez pas encore de compte ? <br><a href="../inscription/inscription.php">Créez
                     en un ici !</a></p>
+
+                    <?php
+                    if (isset($error_message)) {
+                        echo "<p style='color:red;'>$error_message</p>";
+                    }
+                    ?>
+                    
         </div>
     </main>
     <?php 
