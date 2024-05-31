@@ -1,34 +1,44 @@
 <?php
 session_start();
-include 'connectToDB_con.php';
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if(isset($_POST['connect'])) {
     $mail = $_POST['mail'];
     $pwd = $_POST['pwd'];
 
-    if (empty($mail) || empty($pwd)) {
-        $error_message = "Veuillez remplir tous les champs.";
-    } else {
-        try {
-            // Utilisation de $pdo pour accéder à la base de données
-            $stmt = $bdd->prepare('SELECT * FROM compte WHERE mail = :mail');
-            $stmt->execute(['mail' => $mail]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Connexion à la base de données
+    $dsn = 'mysql:host=localhost;dbname=maindb';
+    $username = 'root';
+    $password = '';
 
-            if ($user && password_verify($pwd, $user['pwd'])) {
-                $_SESSION['user_id'] = $user['id_compte'];
-                $_SESSION['user_type'] = $user['types'];
-                header("Location: gestion_compte.php");
-                exit();
+    try {
+        $db = new PDO($dsn, $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Vérification des identifiants
+        $query = "SELECT * FROM compte WHERE mail = :mail AND pwd = :pwd";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(':mail' => $mail, ':pwd' => $pwd));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row) {
+            // Vérifier si le mot de passe correspond
+            if(password_verify($pwd, $row['pwd'])) {
+                // Mot de passe correct, démarrage de la session
+                $_SESSION['id_compte'] = $row['id_compte'];
+                $_SESSION['mail'] = $row['mail'];
+                $_SESSION['types'] = $row['types'];
+
+                // Redirection vers la page de gestion de compte
+                header("Location: ../gestion_compte/gestion_compte.php");
+                exit;
             } else {
-                $error_message = "Email ou mot de passe incorrect.";
+                echo "Identifiants incorrects.";
             }
-        } catch (PDOException $e) {
-            $error_message = "Erreur de connexion à la base de données: " . $e->getMessage();
+        } else {
+            echo "Identifiants incorrects.";
         }
+    } catch(PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
     }
 }
 ?>
