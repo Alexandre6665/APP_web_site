@@ -23,7 +23,6 @@
                 <div class="dropdown-content">
                     <a href="../inscription/inscription.php">Inscription</a>
                     <a href="../connexion/connexion.php">Connexion</a>
-                    <a href="../gestion_compte/gestion_compte.php">Gérer mon compte</a>
                 </div>
             </div>
 
