@@ -1,67 +1,29 @@
 html,
 body {
-    display: flex;
-    flex-direction: column;
     margin: 0;
     padding: 0;
-    background: white;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow-x: hidden;
 }
 
-body {
-    width: 100%;
-}
-
-h1 {
-    margin-left: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    font-weight: bold;
-    text-align: center;
-}
-
-h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    text-align: center;
-    padding-top: 20px;
-    margin-bottom: 20px;
-}
-
-hr {
-    margin-bottom: 30px;
-}
-
-p {
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    text-align: center;
-    margin-top: 1cm;
-}
-
-main {
-    flex: 1;
-    padding-top: 90px;
-}
-
-
-
-.header {
+header {
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
     position: fixed;
     width: 100%;
-    margin: 0;
     height: 90px;
     display: flex;
     justify-content: space-between;
     padding: 0;
     background: linear-gradient(129deg, #F24E1E, #68a4d8);
-    margin-bottom: 400px;
-    z-index: 1000;
+    z-index: 1;
+    top: 0;
 }
 
-.header nav,
+header nav,
 img {
     margin-top: 25px;
 }
@@ -72,18 +34,87 @@ img {
     margin-left: 10px;
 }
 
-.header img {
+header img {
     margin-left: 10px;
 }
 
 main {
-    width: 100%;
-
+    margin-top: 100px;
+    /* Adjusted for header height */
+    flex: 1;
+    padding: 20px;
 }
 
-strong {
+h1 {
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sous_titre {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.texte {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+footer {
+    height: 80px;
+    background: linear-gradient(129deg, #F24E1E, #68a4d8);
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    /* Ensures footer is pushed to bottom */
+}
+
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    font-size: 20px;
+}
+
+.footer a {
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: small;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+}
+
+.footer-2 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    font-size: 20px;
+}
+
+.footer-2 a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: small;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.footer a:hover {
+    color: #F24E1E;
 }
 
 .navbar {
@@ -92,7 +123,6 @@ strong {
     align-items: flex-start;
     width: 100%;
 }
-
 
 .navbar span {
     font-weight: bold;
@@ -137,9 +167,7 @@ strong {
     border: none;
     padding-left: 10px;
     opacity: 7;
-
 }
-
 
 .dropdown-content {
     display: none;
@@ -150,7 +178,6 @@ strong {
     z-index: 1;
     border-radius: 5px;
     margin: 0;
-
 }
 
 .dropdown-content a {
@@ -162,8 +189,6 @@ strong {
     padding: 12px 16px;
     font-size: small;
     background-color: rgb(213, 209, 209);
-
-
 }
 
 .dropdown-content a:hover {
@@ -176,10 +201,9 @@ strong {
 
 .dropdown:hover .dropdown-content {
     display: block;
-
 }
 
-i {
+header i {
     margin-left: 5px;
 }
 
@@ -231,7 +255,6 @@ i {
     display: block;
     padding: 5px 10px;
     color: black;
-
 }
 
 .lang-menu ul li a:hover {
@@ -239,7 +262,6 @@ i {
     cursor: pointer;
     border-radius: 5px;
     scale: 1.1;
-
 }
 
 .lang-menu ul li a:before {
@@ -263,70 +285,65 @@ i {
     display: block;
 }
 
-
-footer {
-    background: linear-gradient(129deg, #F24E1E, #68a4d8);
-    bottom: 0;
-    width: 100%;
-    height: 80px;
+/* Additional styles for the FAQ management section */
+form {
+    margin-bottom: 20px;
 }
 
-.footer {
-    width: 100%;
-    height: 50%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-start;
+form h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     font-size: 20px;
-
+    margin-top: 0;
 }
 
-.footer-2 {
-    width: 100%;
-    height: 50%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    font-size: 20px;
-
+form label {
+    display: block;
+    margin-bottom: 8px;
 }
 
+form input[type="text"],
+form textarea {
+    margin-bottom: 10px;
+}
 
-.footer a {
-    margin-top: 15px;
+form button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #F24E1E;
+    color: white;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-style: italic;
-    font-size: small;
-    text-decoration: none;
-    color: black;
-    text-align: center;
-    cursor: pointer;
 }
 
+form button:hover {
+    background-color: #68a4d8;
+}
 
-.footer-2 a {
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
     font-style: italic;
-    font-size: small;
-    text-decoration: none;
-    color: black;
-    text-align: center;
-    cursor: pointer;
-    margin-right: 50px;
 }
 
-#faq {
-    padding-right: 40px;
+li strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
 }
 
-#mentions {
-    padding-right: 30px;
-}
-
-#conditions {
-    margin-left: 20px;
+li p {
+    margin: 10px 0;
 }
