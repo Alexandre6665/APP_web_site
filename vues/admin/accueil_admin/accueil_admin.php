@@ -24,6 +24,7 @@
         include 'connectToDB.php';
 
         try {
+
             $stmt = $bdd->prepare("SELECT nom, prenom, adresse, code_postal, ville, date_naissance, mail, id_compte FROM spectateur");
             $stmt->execute();
 
