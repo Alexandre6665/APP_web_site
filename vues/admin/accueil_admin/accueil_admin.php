@@ -21,7 +21,7 @@
         <h1>Liste des utilisateurs</h1>
         <hr>
         <?php
-        include 'connectToDB.php';
+        include "connectToDB.php";
 
         try {
 
