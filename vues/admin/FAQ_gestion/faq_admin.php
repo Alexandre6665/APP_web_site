@@ -41,11 +41,12 @@
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':question', $question);
             $stmt->bindParam(':answer', $answer);
-            if ($stmt->execute()) {
+            $stmt->execute();
+            /*if ($stmt->execute()) {
                 echo "Nouvelle FAQ ajoutée avec succès";
             } else {
                 echo "Erreur lors de l'ajout de la FAQ";
-            }
+            }*/
         }
 
         // Supprimer une FAQ
@@ -54,11 +55,12 @@
             $sql = "DELETE FROM faq WHERE id = :id";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':id', $id);
-            if ($stmt->execute()) {
+            $stmt->execute();
+            /*if ($stmt->execute()) {
                 echo "FAQ supprimée avec succès";
             } else {
                 echo "Erreur lors de la suppression de la FAQ";
-            }
+            }*/
         }
 
         // Modifier une FAQ
@@ -71,11 +73,12 @@
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':question', $question);
             $stmt->bindParam(':answer', $answer);
-            if ($stmt->execute()) {
+            $stmt->execute();
+            /*if ($stmt->execute()) {
                 echo "FAQ modifiée avec succès";
             } else {
                 echo "Erreur lors de la modification de la FAQ";
-            }
+            }*/
         }
 
         // Récupérer toutes les FAQs
