@@ -24,13 +24,13 @@
             <p>Pour nous contacter, veuillez remplir le formulaire ci-dessous.</p>
             <p>Votre message sera transmis au service concerné qui traitera votre demande dans le meilleur délai.
             </p>
-            <form>
-                <input type="text" placeholder="Nom">
-                <input type="text" placeholder="Prenom">
-                <input type="text" placeholder="Email">
-                <input type="text" placeholder="Objet">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Message"></textarea>
-                <input type="submit" value="Envoyer">
+            <form action="traitement_help.php" method="POST">
+                <input type="text" placeholder="Nom" name="lastName" required>
+                <input type="text" placeholder="Prenom" name="firstName" required>
+                <input type="text" placeholder="Email" name="mail" required>
+                <input type="text" placeholder="Objet" name="object" required>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Message" name="content" required></textarea>
+                <input type="submit" value="Envoyer" name="send">
             </form>
         </div>
     </main>
