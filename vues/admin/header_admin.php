@@ -5,6 +5,7 @@
         <nav class="navbar">
             <button><a href="../accueil_admin/accueil_admin.php"><span>UTILISATEURS</span></a></button>
             <button><a href="../gestion_films/gestion_films.php"><span>FILMS</span></a></button>
+            <button><a href="../gestion_help/gestion_help.php"><span>Message</span></a></button>
             <button><a href="../FAQ_gestion/faq_admin.php"><span>FAQ</span></a></button>
             <button><a href="../CGU_gestion/cgu_admin.php"><span>CGU</span></a></button>
             <button><a href="../gestion_ML/gestion_mentions_legales.php"><span>MENTIONS LÉGALES</span></a></button>
