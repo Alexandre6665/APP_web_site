@@ -4,34 +4,48 @@ $un = "root";
 $pwd = "";
 $db = "maindb";
 
-// Débuggage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 try {
     $bdd = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if (isset($_POST['send'])) {
-        $nom = $_POST['lastName'];
-        $prenom = $_POST['firstName'];
-        $mail = $_POST['mail'];
-        $objet = $_POST['object'];
-        $content = $_POST['content'];
+} 
 
-        // Préparation des requêtes et liaisons
-        $stmt = $conn->prepare("INSERT INTO message (nom, prenom, mail, objet, content) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $nom, $prenom, $mail, $objet, $content);
-
-        $stmt->execute();
-
-    }
-
-} catch (PDOException $e) {
-    echo "error";
-    echo "<br>" . $e->getMessage();
+catch (PDOException $e) {
+    echo "Erreur de connexion à la base de données : " . $e->getMessage();
 }
 
+if(isset($_POST['send'])) {
+    // Récupération des données du formulaire
+    $nom = $_POST['lastName'];
+    $prenom = $_POST['firstName'];
+    $email = $_POST['mail'];
+    $objet = $_POST['object'];
+    $message = $_POST['content'];
 
+    // Requête d'insertion des données dans la table message
+    $insertQuery = "INSERT INTO message (nom, prenom, mail, objet, content) VALUES (:nom, :prenom, :mail, :objet, :content)";
+    $stmt = $bdd->prepare($insertQuery);
+    
+    try {
+        // Exécution de la requête avec les valeurs des champs input
+        $stmt->execute(array(
+            'nom'=>$nom, 
+            'prenom'=>$prenom, 
+            'mail'=>$email,
+            'objet'=>$objet,
+            'content'=>$message
+        ));
+        echo 
+            "
+                <script>
+                    alert('Vous avez bien été inscrit. Vous allez être redirigé vers la page de connexion.');
+                    setTimeout(function() {
+                        window.location.href = '../event/films_cinema.php';
+                    }, 50);
+                </script>
+            ";
+    } catch (PDOException $e) {
+        echo "Erreur lors de l'envoi du message : " . $e->getMessage();
+    }
+}
 ?>

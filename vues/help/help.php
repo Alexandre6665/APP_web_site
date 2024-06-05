@@ -29,7 +29,7 @@
                 <input type="text" placeholder="Prenom" name="firstName" required>
                 <input type="text" placeholder="Email" name="mail" required>
                 <input type="text" placeholder="Objet" name="object" required>
-                <textarea name="" id="" cols="30" rows="10" placeholder="Message" name="content" required></textarea>
+                <textarea id="" cols="30" rows="10" placeholder="Message" name="content" required></textarea>
                 <input type="submit" value="Envoyer" name="send">
             </form>
         </div>

@@ -18,36 +18,42 @@
     include '../header_admin.php';
     ?>
 
-<main>
-    <h1>Liste des utilisateurs</h1>
-    <hr>
-    <?php
-    include 'connectToDB_help.php';
-    $sql = 'SELECT id_message, nom, prenom, mail, objet, content FROM message';
-    $result = $conn->query($sql);
+    <main>
+        <h1>Liste des messages</h1>
+        <hr>
+        <?php
+        include 'connectToDB_help.php';
+        ?>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Objet</th>
+                <th>Contenu</th>
+            </tr>
+            <?php
+            // Requête pour sélectionner toutes les lignes de la table message
+            $selectQuery = "SELECT nom, prenom, mail, objet, content FROM message";
+            $stmt = $bdd->query($selectQuery);
+
+            // Affichage des résultats dans le tableau
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>" . $row['nom'] . "</td>";
+                echo "<td>" . $row['prenom'] . "</td>";
+                echo "<td>" . $row['mail'] . "</td>";
+                echo "<td>" . $row['objet'] . "</td>";
+                echo "<td>" . $row['content'] . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
     
-    if ($result->num_rows > 0) {
-        echo '<table>';
-        echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Objet</th><th>Message</th></tr>';
-        
-        // Afficher les résultats
-        while ($row = $result->fetch_assoc()) {
-            echo '<tr>';
-            echo '<td>' . htmlspecialchars($row['id_message']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['nom']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['prenom']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['mail']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['objet']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['content']) . '</td>';
-            echo '</tr>';
-        }
-        echo '</table>';
-    } else {
-        echo 'Aucun message trouvé.';
-    }
-    ?>
-</main>
+    </main>
+
 <?php 
 include '../footer_admin.php';
 ?>
+
 </body>
