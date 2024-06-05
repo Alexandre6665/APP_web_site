@@ -1,6 +1,6 @@
 <footer>
         <div class="footer">
-            <a href="#">Besoin d'aide ?</a>
+            <a href="">A propos de nous</a>
             <a href="../help/help.php">Contact</a>
             <a href="">En savoir plus sur nous ?</a>
             <a href="">Recherche</a>

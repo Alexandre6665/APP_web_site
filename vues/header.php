@@ -4,7 +4,7 @@
 
         <nav class="navbar">
             <button><a href="../event/films_cinema.php"><span>ACCUEIL</span></a></button>
-            <button><a href="#"><span>A PROPOS DE NOUS</span></a></button>
+            <button><a href="../FAQ/faq_spectateur.php"><span>FAQ</span></a></button>
 
             <button><a href="../help/help.php"><span>CONTACT</span></a></button>
             <div class="dropdown">
