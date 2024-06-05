@@ -40,7 +40,7 @@ header img {
 
 main {
     margin-top: 100px;
-    /* Adjusted for header height */
+
     flex: 1;
     padding: 20px;
 }
@@ -72,7 +72,7 @@ footer {
     text-align: center;
     padding: 20px;
     margin-top: auto;
-    /* Ensures footer is pushed to bottom */
+
 }
 
 .footer {
@@ -285,7 +285,6 @@ header i {
     display: block;
 }
 
-/* Additional styles for the FAQ management section */
 form {
     margin-bottom: 20px;
 }

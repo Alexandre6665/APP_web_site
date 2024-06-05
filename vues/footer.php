@@ -1,6 +1,6 @@
 <footer>
         <div class="footer">
-            <a href="">A propos de nous</a>
+            <a href="../a_propos/propos.php">A propos de nous</a>
             <a href="../help/help.php">Contact</a>
             <a href="">En savoir plus sur nous ?</a>
             <a href="">Recherche</a>
