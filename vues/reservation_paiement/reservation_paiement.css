@@ -446,10 +446,34 @@ input {
     margin-top: 10px;
     margin-left: 420px;
     cursor: pointer;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.infoB button:hover {
+    border-radius: 5px;
+    background-color: #ff5f09;
+    color: white;
+    height: 35px;
+    width: 175px;
+    margin-left: 35px;
+    margin-right: 15px;
+    border: none;
+    margin-top: 10px;
+    margin-left: 420px;
+    cursor: pointer;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
+    scale: 1.1;
+
 }
 
 .infoB input {
     width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
 footer {
@@ -516,4 +540,10 @@ footer {
 
 #conditions {
     margin-left: 20px;
+}
+
+select {
+    margin-left: 42px;
+    margin-top: 5px;
+
 }

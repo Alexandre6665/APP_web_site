@@ -44,7 +44,7 @@
                     <option value="OWNER">OWNER</option>
                     <option value="ADMIN">ADMIN</option>
                 </select>
-                <input type="password" name="pwd" placeholder="MOT DE PASSE" required>
+                <input type="password" name="pwd" placeholder="MOT DE PASSE (8 caractères ou plus)" required>
                 <input type="password" name="cPwd" placeholder="CONFIRMER VOTRE MOT DE PASSE" required>
                 <div class="checkbox-container">
                     <input type="checkbox" name="checkCG" id="checkCG" required>
