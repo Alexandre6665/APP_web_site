@@ -20,14 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adresse = $_POST['adresse'];
     $code_postal = $_POST['code_postal'];
     $ville = $_POST['ville'];
+    $dob = $_POST['date_naissance'];
 
-    $stmt = $bdd->prepare('UPDATE spectateur SET nom = :nom, prenom = :prenom, adresse = :adresse, code_postal = :code_postal, ville = :ville WHERE id_compte = :id_compte');
+    $stmt = $pdo->prepare('UPDATE spectateur SET nom = :nom, prenom = :prenom, adresse = :adresse, code_postal = :code_postal, ville = :ville, date_naissance = :date_naissance WHERE id_compte = :id_compte');
     $stmt->execute([
         'nom' => $nom,
         'prenom' => $prenom,
         'adresse' => $adresse,
         'code_postal' => $code_postal,
         'ville' => $ville,
+        'date_naissance' => $dob,
         'id_compte' => $id_compte
     ]);
     echo "Informations mises à jour avec succès.";
@@ -57,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="creation">
             <h2>Mon compte</h2>
             <hr>
+            
             <form method="POST" action="">
                 <label for="nom">Nom:</label>
                 <input type="text" id="nom" name="nom" value="<?= htmlspecialchars($user['nom']) ?>" required>
@@ -78,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" id="ville" name="ville" value="<?= htmlspecialchars($user['ville']) ?>" required>
                 <br>
 
-                <label for="date_naissance">Date de Naissance:</label>
+                <label for="date_naissance"><?= htmlspecialchars($user['date_naissance']) ?>:</label>
                 <input type="date" id="date_naissance" name="date_naissance" value="<?= htmlspecialchars($user['date_naissance']) ?>" required>
                 <br>
 
