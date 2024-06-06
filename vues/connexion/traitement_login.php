@@ -36,7 +36,7 @@ if(isset($_POST['connect'])) {
                 header("Location: ../gestion_compte/gestion_compte.php");
                 exit;
             } else {
-                echo "Identifiants incorrects.", implode($row), "<br>", $pwd, "<br>", $row['pwd'], "<br>", password_verify($pwd, $row['pwd']);
+                echo "Identifiants incorrects.";
             }
         } else {
             echo "Identifiants incorrects.";
