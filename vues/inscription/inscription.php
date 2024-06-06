@@ -37,7 +37,7 @@
                 <input type="text" name="add" placeholder="ADRESSE" value="<?php echo $add; ?>" required>
                 <input type="text" name="postal" placeholder="CODE POSTAL" value="<?php echo $postal; ?>" required>
                 <input type="text" name="city" placeholder="VILLE" value="<?php echo $city; ?>" required>
-                <input type="text" name="birth" placeholder="DATE DE NAISSANCE" value="<?php echo $birth; ?>" required>
+                <input type="text" name="birth" placeholder="DATE DE NAISSANCE (MM/JJ/AAAA)" value="<?php echo $birth; ?>" required>
                 <input type="email" name="mail" placeholder="EMAIL" value="<?php echo $mail; ?>" required>
                 <select name="type" required>
                     <option value="DEFAULT">DEFAULT</option>
