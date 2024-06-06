@@ -1,6 +1,8 @@
 <?php
 include 'db_connection.php';
 
+session_start();
+
 if (!isset($_SESSION['id_compte'])) {
     header("Location: connexion.php");
     exit();
@@ -8,7 +10,7 @@ if (!isset($_SESSION['id_compte'])) {
 
 $id_compte = $_SESSION['id_compte'];
 
-$stmt = $bdd->prepare('SELECT * FROM spectateur WHERE id_compte = :id_compte');
+$stmt = $pdo->prepare('SELECT * FROM spectateur WHERE id_compte = :id_compte'); 
 $stmt->execute(['id_compte' => $id_compte]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

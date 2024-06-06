@@ -16,23 +16,27 @@ if(isset($_POST['connect'])) {
         // Vérification des identifiants
         $query = "SELECT * FROM compte WHERE mail = :mail AND pwd = :pwd";
         $stmt = $db->prepare($query);
-        $stmt->execute(array(':mail' => $mail, ':pwd' => $pwd));
+        $stmt->execute(array(':mail' => $mail, ':pwd' => MD5($pwd)));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row) {
             // Vérifier si le mot de passe correspond
-            if(password_verify($pwd, $row['pwd'])) {
+            if(MD5($pwd) === $row['pwd']) {
                 // Mot de passe correct, démarrage de la session
                 session_start();
                 $_SESSION['id_compte'] = $row['id_compte'];
                 $_SESSION['mail'] = $row['mail'];
                 $_SESSION['types'] = $row['types'];
 
+                echo "Session: ",implode($_SESSION), $_SESSION['id_compte'];
+                
+                //session_set_cookie_params(3600);
+
                 // Redirection vers la page de gestion de compte
                 header("Location: ../gestion_compte/gestion_compte.php");
                 exit;
             } else {
-                echo "Identifiants incorrects.";
+                echo "Identifiants incorrects.", implode($row), "<br>", $pwd, "<br>", $row['pwd'], "<br>", password_verify($pwd, $row['pwd']);
             }
         } else {
             echo "Identifiants incorrects.";

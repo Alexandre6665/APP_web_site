@@ -2,7 +2,7 @@
 $serv = "localhost";
 $un = "root";
 $pwd = "";
-$db = "maindbb";
+$db = "maindb";
 
 try {
     $pdo = new PDO("mysql:host=$serv;dbname=$db", $un, $pwd);
