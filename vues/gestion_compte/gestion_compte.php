@@ -87,6 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <input type="submit" value="Mettre à jour">
             </form>
+            <form method="POST" action="deconnexion.php">
+                <input type="submit" value="Déconnexion">
+            </form>
         </div>
     </main>
     <?php 
