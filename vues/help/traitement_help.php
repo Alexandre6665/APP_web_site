@@ -38,7 +38,7 @@ if(isset($_POST['send'])) {
         echo 
             "
                 <script>
-                    alert('Vous avez bien été inscrit. Vous allez être redirigé vers la page de connexion.');
+                    alert('Votre message a bien été envoyé. Vous allez être redirigé vers la page d'accueil.');
                     setTimeout(function() {
                         window.location.href = '../event/films_cinema.php';
                     }, 50);
