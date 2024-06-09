@@ -14,16 +14,21 @@
 <body>
     <?php
     include '../header_admin.php';
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
 
     $servername = "localhost"; 
     $username = "root";
     $password = ""; 
     $dbname = "maindb"; 
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connexion échouée : " . $conn->connect_error);
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+        die("Connexion échouée : " . $e->getMessage());
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
@@ -36,16 +41,21 @@
         $avertissement = $_POST['avertissement'];
         $image = $_POST['image'];
 
-        $stmt = $conn->prepare("INSERT INTO film (titre, realisateur, categorie, synopsis, duree, annee, avertissement, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssss", $titre, $realisateur, $categorie, $synopsis, $duree, $annee, $avertissement, $image);
+        $stmt = $conn->prepare("INSERT INTO film (titre, realisateur, categorie, synopsis, duree, annee, avertissement, image) VALUES (:titre, :realisateur, :categorie, :synopsis, :duree, :annee, :avertissement, :image)");
+        $stmt->execute(array(
+            'titre'=>$titre,
+            'realisateur'=>$realisateur,
+            'categorie'=>$categorie,
+            'synopsis'=>$synopsis,
+            'duree'=>$duree,
+            'annee'=>$annee,
+            'avertissement'=>$avertissement,
+            'image'=>$image
+        ));
+        
+        //$stmt->execute([$titre, $realisateur, $categorie, $synopsis, $duree, $annee, $avertissement, $image]);
 
-        if ($stmt->execute()) {
-            echo "Nouveau film ajouté avec succès.";
-        } else {
-            echo "Erreur: " . $stmt->error;
-        }
-
-        $stmt->close();
+        echo "Nouveau film ajouté avec succès.";
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
@@ -60,30 +70,18 @@
         $image = $_POST['image'];
 
         $stmt = $conn->prepare("UPDATE film SET titre = ?, realisateur = ?, categorie = ?, synopsis = ?, duree = ?, annee = ?, avertissement = ?, image = ? WHERE visa = ?");
-        $stmt->bind_param("ssssssssi", $titre, $realisateur, $categorie, $synopsis, $duree, $annee, $avertissement, $image, $visa);
+        $stmt->execute([$titre, $realisateur, $categorie, $synopsis, $duree, $annee, $avertissement, $image, $visa]);
 
-        if ($stmt->execute()) {
-            echo "Film mis à jour avec succès.";
-        } else {
-            echo "Erreur: " . $stmt->error;
-        }
-
-        $stmt->close();
+        echo "Film mis à jour avec succès.";
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
         $visa = $_POST['visa'];
 
         $stmt = $conn->prepare("DELETE FROM film WHERE visa = ?");
-        $stmt->bind_param("i", $visa);
+        $stmt->execute([$visa]);
 
-        if ($stmt->execute()) {
-            echo "Film supprimé avec succès.";
-        } else {
-            echo "Erreur: " . $stmt->error;
-        }
-
-        $stmt->close();
+        echo "Film supprimé avec succès.";
     }
 
     $sql = "SELECT visa, titre, realisateur, categorie, synopsis, duree, annee, avertissement, image FROM film";
@@ -118,8 +116,8 @@
 
         <h2>Modifier les films existants</h2>
         <?php
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
+        if ($result->rowCount() > 0) {
+            foreach($result as $row) {
                 ?>
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <input type="hidden" name="visa" value="<?php echo $row['visa']; ?>">
@@ -148,7 +146,6 @@
         } else {
             echo "Aucun film trouvé.";
         }
-        $conn->close();
         ?>
     </main>
 
@@ -157,3 +154,4 @@
     ?>
 </body>
 </html>
+
