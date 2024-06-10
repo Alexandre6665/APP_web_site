@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <header class="header">
         <a class="logo" href="../event/films_cinema.php"><img src="../images/Logo_SoundOnAir.png" alt="Logo" width="130px"
                 height="20px"></a>
