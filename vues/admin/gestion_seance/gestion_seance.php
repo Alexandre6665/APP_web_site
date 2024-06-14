@@ -53,7 +53,7 @@
         $salle_id = $_POST['id_salle'];
         $film_id = $_POST['visa'];
 
-        $stmt = $conn->prepare("UPDATE diffuser SET langue = ?, heureDebut = ?, heureFin = ?, id_salle = ?, visa = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE diffuser SET langue = ?, heureDebut = ?, heureFin = ?, id_salle = ?, visa = ? WHERE id_diffusion = ?");
         $stmt->bind_param("sssiii", $langue, $heureDebut, $heureFin, $salle_id, $film_id, $id);
 
         if ($stmt->execute()) {
@@ -93,9 +93,9 @@
             <label for="langue">Langue:</label><br>
             <input type="text" id="langue" name="langue" required><br>
             <label for="heureDebut">Heure de début:</label><br>
-            <input type="datetime-local" id="heureDebut" name="heureDebut" required><br>
+            <input type="time" id="heureDebut" name="heureDebut" required><br>
             <label for="heureFin">Heure de fin:</label><br>
-            <input type="datetime-local" id="heureFin" name="heureFin" required><br>
+            <input type="time" id="heureFin" name="heureFin" required><br>
             <label for="id_salle">ID de la salle:</label><br>
             <input type="number" id="id_salle" name="id_salle" required><br>
             <label for="visa">ID du film:</label><br>
@@ -114,9 +114,9 @@
                     <label for="langue_<?php echo $row['id_diffusion']; ?>">Langue:</label><br>
                     <input type="text" id="langue_<?php echo $row['id_diffusion']; ?>" name="langue" value="<?php echo htmlspecialchars($row['langue']); ?>" required><br>
                     <label for="heureDebut_<?php echo $row['id_diffusion']; ?>">Heure de début:</label><br>
-                    <input type="datetime-local" id="heureDebut_<?php echo $row['id_diffusion']; ?>" name="heureDebut" value="<?php echo htmlspecialchars($row['heureDebut']); ?>" required><br>
+                    <input type="time" id="heureDebut_<?php echo $row['id_diffusion']; ?>" name="heureDebut" value="<?php echo htmlspecialchars($row['heureDebut']); ?>" required><br>
                     <label for="heureFin_<?php echo $row['id_diffusion']; ?>">Heure de fin:</label><br>
-                    <input type="datetime-local" id_diffusion="heureFin_<?php echo $row['id_diffusion']; ?>" name="heureFin" value="<?php echo htmlspecialchars($row['heureFin']); ?>" required><br>
+                    <input type="time" id_diffusion="heureFin_<?php echo $row['id_diffusion']; ?>" name="heureFin" value="<?php echo htmlspecialchars($row['heureFin']); ?>" required><br>
                     <label for="id_salle_<?php echo $row['id_diffusion']; ?>">ID de la salle:</label><br>
                     <input type="number" id="id_salle_<?php echo $row['id_diffusion']; ?>" name="id_salle" value="<?php echo htmlspecialchars($row['id_salle']); ?>" required><br>
                     <label for="visa_<?php echo $row['id_diffusion']; ?>">ID du film:</label><br>
